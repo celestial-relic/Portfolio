@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sahil Vishwakarma — Vibe Coder, CS Engineer, Cybersecurity & Web Dev portfolio">
+
+  <title>Sahil Vishwakarma | Portfolio</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== FIXED VIDEO LAYER (behind everything) ===== -->
+  <div id="videoLayer" class="video-layer">
+    <video id="heroVideo" src="assets/hero-video.mp4" muted playsinline preload="auto"></video>
+    <div class="hero-overlay">
+      <div class="hero-text" id="heroText">
+        <span class="hero-greeting">Hello</span>
+        <h1 class="hero-name">It's Sahil Vishwakarma</h1>
+        <p class="hero-tagline">Welcome to the Portfolio</p>
+      </div>
+    </div>
+    <div class="hero-fade-to-black" id="heroFade"></div>
+    <div class="scroll-indicator" id="scrollIndicator">
+      <div class="scroll-arrow"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </div>
+
+  <!-- ===== SCROLLABLE CONTENT ===== -->
+  <main id="mainContent">
+
+    <!-- Hero spacer — shorter for snappier video, transparent so fixed video shows -->
+    <section id="hero" class="hero-spacer"></section>
+
+    <!-- ============ INTRODUCTION ============ -->
+    <section id="introduction" class="intro-section content-section">
+      <div class="intro-container">
+        <div class="intro-label" data-motion>
+          <span class="label-line"></span>
+          <span>INTRODUCTION</span>
+        </div>
+        <div class="intro-grid">
+          <div class="intro-main">
+            <h2 class="intro-title" data-motion>
+              <span class="title-word" style="--i:0">Sahil</span>
+              <span class="title-word" style="--i:1">Vishwakarma</span>
+            </h2>
+            <div class="intro-role" data-motion>
+              <div class="role-badge">
+                <span class="badge-dot"></span>
+                Computer Science Engineering
+              </div>
+            </div>
+            <p class="intro-quote" data-motion>"I am a vibe coder who changes the vibe."</p>
+          </div>
+          <div class="intro-details">
+            <div class="detail-card" data-motion data-cursor-press>
+              <div class="detail-icon">📍</div>
+              <div class="detail-text">
+                <span class="detail-label">Based in</span>
+                <span class="detail-value">Agra, India</span>
+              </div>
+            </div>
+            <div class="detail-card" data-motion data-cursor-press>
+              <div class="detail-icon">🎓</div>
+              <div class="detail-text">
+                <span class="detail-label">Studying</span>
+                <span class="detail-value">Computer Science Engineering</span>
+              </div>
+            </div>
+            <div class="detail-card" data-motion data-cursor-press>
+              <div class="detail-icon">⚡</div>
+              <div class="detail-text">
+                <span class="detail-label">Passion</span>
+                <span class="detail-value">Cybersecurity & Web Dev</span>
+              </div>
+            </div>
+            <div class="detail-card" data-motion data-cursor-press>
+              <div class="detail-icon">🛡️</div>
+              <div class="detail-text">
+                <span class="detail-label">Focus</span>
+                <span class="detail-value">Security Research & Automation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="intro-about" data-motion>
+          <p>A driven Computer Science student from the historic city of Agra, I merge creativity with code. 
+          With a razor-sharp focus on cybersecurity and full-stack web development, I build tools that don't just work — they make a statement. 
+          Whether it's automating intelligence gathering, analyzing risk, or crafting pixel-perfect interfaces, 
+          I bring a unique "vibe" to every project — one that blends technical depth with aesthetic precision.</p>
+        </div>
+        <div class="intro-stats">
+          <div class="stat-item" data-motion data-cursor-press>
+            <span class="stat-number" data-count="5">0</span>
+            <span class="stat-label">Projects Shipped</span>
+          </div>
+          <div class="stat-item" data-motion data-cursor-press>
+            <span class="stat-number" data-count="10">0</span>
+            <span class="stat-label">Technologies</span>
+          </div>
+          <div class="stat-item" data-motion data-cursor-press>
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Vibes</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HACKER / OSINT SECTION ============ -->
+    <section id="hacker-projects" class="hacker-section content-section">
+      <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
+      <div class="hacker-container">
+        <div class="hacker-label" data-motion>
+          <span class="terminal-prompt">root@sahil:~$</span>
+          <span class="typing-text" id="hackerTyping"></span>
+          <span class="cursor-blink">_</span>
+        </div>
+        <div class="hacker-projects-grid">
+          <div class="hacker-card" data-motion data-cursor-press>
+            <div class="hacker-card-bg"><img src="assets/osint-bg.png" alt="OSINT Bot"></div>
+            <div class="hacker-card-content">
+              <div class="hacker-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>
+              </div>
+              <h3>OSINT Bot</h3>
+              <p>Security-focused OSINT solution for publicly available information analysis. Features password strength evaluation and breach-awareness verification.</p>
+              <div class="hacker-card-tags"><span>Python</span><span>OSINT</span><span>Security</span></div>
+            </div>
+            <div class="binary-stream" data-binary></div>
+          </div>
+          <div class="hacker-card" data-motion data-cursor-press>
+            <div class="hacker-card-bg"><img src="assets/data-extractor-bg.png" alt="Data Extractor"></div>
+            <div class="hacker-card-content">
+              <div class="hacker-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </div>
+              <h3>Data Extractor</h3>
+              <p>Tool to collect, process, and organize publicly accessible website data. Automation-driven for improved data collection efficiency.</p>
+              <div class="hacker-card-tags"><span>Scraping</span><span>Automation</span><span>Data</span></div>
+            </div>
+            <div class="binary-stream" data-binary></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HORIZONTAL PROJECT GALLERY ============ -->
+    <section id="project-gallery" class="gallery-section content-section">
+      <div class="gallery-pin-spacer">
+        <div class="gallery-track" id="galleryTrack">
+          <div class="gallery-slide gallery-intro-slide">
+            <div class="gallery-intro-content">
+              <span class="section-tag" data-motion>FEATURED WORK</span>
+              <h2 data-motion>Projects</h2>
+              <p data-motion>Scroll to explore my craft →</p>
+            </div>
+          </div>
+          <div class="gallery-slide" data-theme="simulation">
+            <div class="slide-bg"><img src="assets/test-simulation.png" alt="Test Simulation"><div class="slide-bg-overlay simulation-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">01</div>
+              <h3>Test Simulation</h3>
+              <p>A 3D drawing simulation that renders geometric forms in mid-air. Interactive, spatial, immersive.</p>
+              <a href="https://testsimulation01.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+            <div class="cube-decoration"><div class="cube"><div class="cube-face front"></div><div class="cube-face back"></div><div class="cube-face right"></div><div class="cube-face left"></div><div class="cube-face top"></div><div class="cube-face bottom"></div></div></div>
+          </div>
+          <div class="gallery-slide" data-theme="japan">
+            <div class="slide-bg"><img src="assets/japan-tourism.png" alt="Japan Tourism"><div class="slide-bg-overlay japan-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">02</div>
+              <h3>Japan Tourism</h3>
+              <p>Shibuya-inspired tourism template. Neon-lit nightscapes, Japanese typography, and wanderlust in every pixel.</p>
+              <a href="https://shimmering-maamoul-49d1ed.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+            <div class="japan-particles" id="sakuraParticles"></div>
+          </div>
+          <div class="gallery-slide" data-theme="intro">
+            <div class="slide-bg"><img src="assets/intro-webpage.png" alt="Intro Web Page"><div class="slide-bg-overlay intro-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">03</div>
+              <h3>Character Intro</h3>
+              <p>A cinematic character introduction page — dramatic, story-driven, with spotlit reveals and atmospheric depth.</p>
+              <a href="https://portfoliomadebysahil.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+          </div>
+          <div class="gallery-slide" data-theme="raven">
+            <div class="slide-bg"><img src="assets/raven-risk.png" alt="Raven Risk Analyzer"><div class="slide-bg-overlay raven-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">04</div>
+              <h3>Raven Risk Analyzer</h3>
+              <p>Malware file detection and risk scoring on the web. Security-first, threat-aware, built to protect.</p>
+              <a href="https://riskyfileanalyzer.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+            <div class="raven-scanlines"></div>
+          </div>
+          <div class="gallery-slide" data-theme="zen">
+            <div class="slide-bg"><img src="assets/zenitivity.png" alt="Zenitivity"><div class="slide-bg-overlay zen-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">05</div>
+              <h3>Zenitivity</h3>
+              <p>A Zen-inspired business promotion platform. Clean lines, dark elegance, mindful design philosophy.</p>
+              <a href="https://zenitivity.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS SECTION (WHITE THEME) ============ -->
+    <section id="skills" class="skills-section content-section">
+      <div class="skills-container">
+        <div class="skills-header" data-motion>
+          <span class="section-tag dark-tag">PROFICIENCY</span>
+          <h2>Skills & Expertise</h2>
+          <p>Measured. Proven. Always growing.</p>
+        </div>
+        <div class="skills-layout" id="skillsGrid">
+          <div class="skills-col skills-left">
+            <div class="skill-item" data-level="75" data-motion><span class="skill-label">Python</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="60" data-motion><span class="skill-label">Java</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="92" data-motion><span class="skill-label">HTML</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="88" data-motion><span class="skill-label">CSS</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="80" data-motion><span class="skill-label">Modern UI</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="65" data-motion><span class="skill-label">Auth Systems</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="72" data-motion><span class="skill-label">API Integration</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="85" data-motion><span class="skill-label">AI-Assisted Dev</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="58" data-motion><span class="skill-label">Data Analytics</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="78" data-motion><span class="skill-label">Git</span><span class="skill-val">0%</span></div>
+          </div>
+          <div class="skills-center-bar">
+            <div class="center-bar-track"><div class="center-bar-fill" id="centerBarFill"></div></div>
+            <div class="center-bar-value" id="centerBarValue">0</div>
+          </div>
+          <div class="skills-col skills-right">
+            <div class="skill-item" data-level="80" data-motion><span class="skill-val">0%</span><span class="skill-label">GitHub</span></div>
+            <div class="skill-item" data-level="87" data-motion><span class="skill-val">0%</span><span class="skill-label">Web Dev</span></div>
+            <div class="skill-item" data-level="70" data-motion><span class="skill-val">0%</span><span class="skill-label">Linux</span></div>
+            <div class="skill-item" data-level="76" data-motion><span class="skill-val">0%</span><span class="skill-label">Cyber Security</span></div>
+            <div class="skill-item" data-level="68" data-motion><span class="skill-val">0%</span><span class="skill-label">Editing</span></div>
+            <div class="skill-item" data-level="72" data-motion><span class="skill-val">0%</span><span class="skill-label">Content Creation</span></div>
+            <div class="skill-item" data-level="90" data-motion><span class="skill-val">0%</span><span class="skill-label">Computer Fund.</span></div>
+            <div class="skill-item" data-level="82" data-motion><span class="skill-val">0%</span><span class="skill-label">Problem Solving</span></div>
+            <div class="skill-item" data-level="75" data-motion><span class="skill-val">0%</span><span class="skill-label">Deploy & Host</span></div>
+            <div class="skill-item" data-level="70" data-motion><span class="skill-val">0%</span><span class="skill-label">Full-Stack</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT SECTION (DARK) ============ -->
+    <section id="contact" class="contact-section content-section">
+      <div class="contact-container">
+        <div class="contact-header" data-motion>
+          <span class="section-tag">GET IN TOUCH</span>
+          <h2>Let's Connect</h2>
+          <p>Have a project in mind? Let's make it happen.</p>
+        </div>
+        <div class="contact-cards">
+          <a href="https://api.whatsapp.com/send/?phone=918795674825&text&type=phone_number&app_absent=0" target="_blank" class="contact-card whatsapp-card" data-cursor-press>
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+            <span class="contact-label">WhatsApp</span>
+            <span class="contact-hint">Message me</span>
+          </a>
+          <a href="https://www.linkedin.com/in/sahil-vishwakarma-185b052b2" target="_blank" class="contact-card linkedin-card" data-cursor-press>
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
+            <span class="contact-label">LinkedIn</span>
+            <span class="contact-hint">Connect with me</span>
+          </a>
+          <a href="mailto:mrsahilvishwakarmaofficial@gmail.com" class="contact-card email-card" data-cursor-press>
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></div>
+            <span class="contact-label">Gmail</span>
+            <span class="contact-hint">Drop an email</span>
+          </a>
+        </div>
+        <div class="contact-footer" data-motion>
+          <p>Designed & crafted by <strong>Sahil Vishwakarma</strong></p>
+          <p class="footer-year">© 2026</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
