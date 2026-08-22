@@ -2,11 +2,11 @@
    SAHIL VISHWAKARMA — PORTFOLIO
    ========================================== */
 
-/* Ryomen Sukuna Finger - Jujutsu Kaisen (Scaled) */
+/* Ryomen Sukuna Finger - Jujutsu Kaisen (Optimal Size ~56px) */
 * {
-  cursor: url('assets/sukuna-cursor-28.png') 0 2, url('assets/sukuna-cursor.png') 0 2, url('https://cdn.cursors-4u.net/previews/sukuna-finger-c7e60abd-128.webp') 0 4, auto !important;
+  cursor: url('assets/sukuna-cursor-56.png') 0 4, url('assets/sukuna-cursor-48.png') 0 4, url('https://cdn.cursors-4u.net/previews/sukuna-finger-c7e60abd-128.webp') 0 4, auto !important;
 }
-/* End www.Cursors-4U.com Code */
+/* End Cursors Code */
 
 :root {
   --bg-dark: #0a0a0f;
