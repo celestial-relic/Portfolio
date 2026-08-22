@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* =========================================
-     2. VIDEO SCROLL SYNC + FADE TO BLACK
+     2. VIDEO SCROLL SYNC + FADE TO BLACK (SMOOTH LERP FOR LOW-END/LOW-NET PCS)
      ========================================= */
   const heroVideo = document.getElementById('heroVideo');
   const videoLayer = document.getElementById('videoLayer');
@@ -29,40 +29,63 @@ document.addEventListener('DOMContentLoaded', () => {
   const scrollIndicator = document.getElementById('scrollIndicator');
 
   let videoDuration = 0;
+  let targetProgress = 0;
+  let currentProgress = 0;
+  let isHeroVisible = true;
+
   if (heroVideo) {
-    heroVideo.addEventListener('loadedmetadata', () => { videoDuration = heroVideo.duration; });
+    heroVideo.preload = 'auto';
+    heroVideo.muted = true;
+    heroVideo.playsInline = true;
+    const setDuration = () => { if (heroVideo.duration) videoDuration = heroVideo.duration; };
+    heroVideo.addEventListener('loadedmetadata', setDuration);
+    heroVideo.addEventListener('canplaythrough', setDuration);
     heroVideo.load();
   }
 
-  function handleVideoScroll() {
-    if (!heroSection || !videoLayer) return;
+  function updateVideoScrollTarget() {
+    if (!heroSection) return;
     const rect = heroSection.getBoundingClientRect();
     const sectionHeight = heroSection.offsetHeight - window.innerHeight;
     const scrolled = Math.max(0, -rect.top);
-    const progress = Math.min(1, scrolled / Math.max(sectionHeight, 1));
+    targetProgress = Math.min(1, Math.max(0, scrolled / Math.max(sectionHeight, 1)));
+    isHeroVisible = rect.bottom > 0;
+    if (videoLayer) videoLayer.classList.toggle('hidden', !isHeroVisible);
+  }
 
-    // Hide video layer once past the hero spacer
-    videoLayer.classList.toggle('hidden', rect.bottom <= 0);
+  function renderSmoothHero() {
+    if (isHeroVisible) {
+      const diff = targetProgress - currentProgress;
+      if (Math.abs(diff) > 0.0004) {
+        currentProgress += diff * 0.18; // smooth spring lerp
+        
+        if (heroVideo && videoDuration > 0 && !heroVideo.seeking) {
+          const targetTime = currentProgress * videoDuration;
+          if (Math.abs(heroVideo.currentTime - targetTime) > 0.025) {
+            heroVideo.currentTime = targetTime;
+          }
+        }
+      }
 
-    // Scrub video
-    if (heroVideo && videoDuration > 0) heroVideo.currentTime = progress * videoDuration;
+      // Hero text visibility
+      if (heroText) heroText.classList.toggle('visible', currentProgress > 0.1 && currentProgress < 0.7);
 
-    // Hero text visible between 10%-70%
-    if (heroText) heroText.classList.toggle('visible', progress > 0.1 && progress < 0.7);
+      // Scroll indicator
+      if (scrollIndicator) scrollIndicator.classList.toggle('hidden', currentProgress > 0.05);
 
-    // Scroll indicator
-    if (scrollIndicator) scrollIndicator.classList.toggle('hidden', progress > 0.05);
-
-    // Fade to black in the last 20% of the hero scroll
-    if (heroFade) {
-      const fadeStart = 0.75;
-      if (progress > fadeStart) {
-        heroFade.style.opacity = Math.min(1, (progress - fadeStart) / (1 - fadeStart));
-      } else {
-        heroFade.style.opacity = 0;
+      // Fade to black
+      if (heroFade) {
+        const fadeStart = 0.75;
+        if (currentProgress > fadeStart) {
+          heroFade.style.opacity = Math.min(1, (currentProgress - fadeStart) / (1 - fadeStart));
+        } else {
+          heroFade.style.opacity = 0;
+        }
       }
     }
+    requestAnimationFrame(renderSmoothHero);
   }
+  requestAnimationFrame(renderSmoothHero);
 
   /* =========================================
      3. 3D WEBGL BACKGROUND (INTRODUCTION)
@@ -572,18 +595,18 @@ ${name}`);
      ========================================= */
   let ticking = false;
   window.addEventListener('scroll', () => {
+    updateVideoScrollTarget();
     if (!ticking) {
       requestAnimationFrame(() => {
-        handleVideoScroll();
         handleGalleryScroll();
         handleSkillsScroll();
         ticking = false;
       });
       ticking = true;
     }
-  });
+  }, { passive: true });
 
-  handleVideoScroll();
+  updateVideoScrollTarget();
   handleGalleryScroll();
   handleSkillsScroll();
 
