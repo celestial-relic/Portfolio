@@ -12,7 +12,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Three.js for 3D Background Experiences -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -42,10 +46,15 @@
 
     <!-- ============ INTRODUCTION ============ -->
     <section id="introduction" class="intro-section content-section">
+      <!-- 3D Interactive WebGL Canvas -->
+      <canvas id="intro3dCanvas" class="intro-3d-canvas"></canvas>
+      <div class="intro-ambient-glow"></div>
+
       <div class="intro-container">
         <div class="intro-label" data-motion>
           <span class="label-line"></span>
           <span>INTRODUCTION</span>
+          <span class="badge-3d-indicator">3D IMMERSIVE</span>
         </div>
         <div class="intro-grid">
           <div class="intro-main">
@@ -100,11 +109,11 @@
         </div>
         <div class="intro-stats">
           <div class="stat-item" data-motion data-cursor-press>
-            <span class="stat-number" data-count="5">0</span>
+            <span class="stat-number" data-count="10">0</span>
             <span class="stat-label">Projects Shipped</span>
           </div>
           <div class="stat-item" data-motion data-cursor-press>
-            <span class="stat-number" data-count="10">0</span>
+            <span class="stat-number" data-count="15">0</span>
             <span class="stat-label">Technologies</span>
           </div>
           <div class="stat-item" data-motion data-cursor-press>
@@ -157,61 +166,144 @@
     <section id="project-gallery" class="gallery-section content-section">
       <div class="gallery-pin-spacer">
         <div class="gallery-track" id="galleryTrack">
+
+          <!-- Slide 0: Gallery Intro -->
           <div class="gallery-slide gallery-intro-slide">
             <div class="gallery-intro-content">
               <span class="section-tag" data-motion>FEATURED WORK</span>
               <h2 data-motion>Projects</h2>
-              <p data-motion>Scroll to explore my craft →</p>
+              <p data-motion>Scroll to explore my full craft roster →</p>
+              <div class="gallery-indicator-pills">
+                <span>01 Simulation</span>
+                <span>02 Japan</span>
+                <span>03 Minecraft</span>
+                <span>04 MedAssist AI</span>
+                <span>05 Football AQX</span>
+                <span>06 CodeFlow</span>
+                <span>07 Character</span>
+                <span>08 Raven Risk</span>
+                <span>09 Zenitivity</span>
+              </div>
             </div>
           </div>
+
+          <!-- Slide 1: Test Simulation -->
           <div class="gallery-slide" data-theme="simulation">
             <div class="slide-bg"><img src="assets/test-simulation.png" alt="Test Simulation"><div class="slide-bg-overlay simulation-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
               <div class="slide-number">01</div>
+              <div class="slide-tag">SPATIAL / 3D</div>
               <h3>Test Simulation</h3>
-              <p>A 3D drawing simulation that renders geometric forms in mid-air. Interactive, spatial, immersive.</p>
+              <p>A 3D drawing simulation that renders geometric forms in mid-air. Interactive, spatial, and immersive graphics engine.</p>
               <a href="https://testsimulation01.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
             <div class="cube-decoration"><div class="cube"><div class="cube-face front"></div><div class="cube-face back"></div><div class="cube-face right"></div><div class="cube-face left"></div><div class="cube-face top"></div><div class="cube-face bottom"></div></div></div>
           </div>
+
+          <!-- Slide 2: Japan Tourism -->
           <div class="gallery-slide" data-theme="japan">
             <div class="slide-bg"><img src="assets/japan-tourism.png" alt="Japan Tourism"><div class="slide-bg-overlay japan-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
               <div class="slide-number">02</div>
+              <div class="slide-tag">EXPERIENCE & UI</div>
               <h3>Japan Tourism</h3>
-              <p>Shibuya-inspired tourism template. Neon-lit nightscapes, Japanese typography, and wanderlust in every pixel.</p>
+              <p>Shibuya-inspired tourism template. Neon-lit nightscapes, Japanese typography, atmospheric soundscapes, and wanderlust in every pixel.</p>
               <a href="https://shimmering-maamoul-49d1ed.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
             <div class="japan-particles" id="sakuraParticles"></div>
           </div>
+
+          <!-- Slide 3: MineWithMax (NEW) -->
+          <div class="gallery-slide" data-theme="minecraft">
+            <div class="slide-bg"><img src="assets/minecraft-bg.jpg" alt="MineWithMax"><div class="slide-bg-overlay minecraft-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">03</div>
+              <div class="slide-tag">MINECRAFT × ANIME</div>
+              <h3>MineWithMax</h3>
+              <p>An interactive Minecraft cherry-blossom biome world featuring custom voxel pixel art, custom HUD inventory, soundscape ambience, and retro gaming mechanics.</p>
+              <a href="https://minewithmax.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+            <div class="minecraft-particles">
+              <div class="pixel-block-decor"></div>
+            </div>
+          </div>
+
+          <!-- Slide 4: MedAssist AI (NEW) -->
+          <div class="gallery-slide" data-theme="medassist">
+            <div class="slide-bg"><img src="assets/medassist-bg.jpg" alt="MedAssist AI"><div class="slide-bg-overlay medassist-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">04</div>
+              <div class="slide-tag">AI HEALTHCARE & CLINICAL</div>
+              <h3>MedAssist AI</h3>
+              <p>Intelligent AI diagnostic and medical triage assistant. Features real-time symptom analysis, lab report breakdown, dosage scheduling, and emergency assistance.</p>
+              <a href="https://medassistaitool.lovable.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+            <div class="medical-pulse-line"></div>
+          </div>
+
+          <!-- Slide 5: Football AQX (NEW) -->
+          <div class="gallery-slide" data-theme="football">
+            <div class="slide-bg"><img src="assets/football-bg.jpg" alt="Football AQX"><div class="slide-bg-overlay football-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">05</div>
+              <div class="slide-tag">DATA & SPORTS ANALYTICS</div>
+              <h3>Football AQX</h3>
+              <p>Advanced football intelligence and scouting analytics platform. Real-time pitch heatmaps, player radar matrices, tactical vector breakdown, and match simulations.</p>
+              <a href="https://footballaqx.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+            <div class="football-radar-glow"></div>
+          </div>
+
+          <!-- Slide 6: CodeFlow Analyzer (NEW) -->
+          <div class="gallery-slide" data-theme="codeflow">
+            <div class="slide-bg"><img src="assets/codeflow-bg.jpg" alt="CodeFlow Analyzer"><div class="slide-bg-overlay codeflow-overlay"></div></div>
+            <div class="slide-content" data-cursor-press>
+              <div class="slide-number">06</div>
+              <div class="slide-tag">AST & DEV TOOLING</div>
+              <h3>CodeFlow Analyzer</h3>
+              <p>Multi-language AST execution tracer and flowchart visualizer. Transforms complex code logic into interactive node graphs, call-trees, and runtime states.</p>
+              <a href="https://codeflowanalyzer.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+            </div>
+            <div class="code-ast-glow"></div>
+          </div>
+
+          <!-- Slide 7: Character Intro -->
           <div class="gallery-slide" data-theme="intro">
             <div class="slide-bg"><img src="assets/intro-webpage.png" alt="Intro Web Page"><div class="slide-bg-overlay intro-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
-              <div class="slide-number">03</div>
+              <div class="slide-number">07</div>
+              <div class="slide-tag">CINEMATIC WEB</div>
               <h3>Character Intro</h3>
-              <p>A cinematic character introduction page — dramatic, story-driven, with spotlit reveals and atmospheric depth.</p>
+              <p>A cinematic character introduction page — dramatic, story-driven, with spotlit reveals and deep atmospheric depth.</p>
               <a href="https://portfoliomadebysahil.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
           </div>
+
+          <!-- Slide 8: Raven Risk Analyzer -->
           <div class="gallery-slide" data-theme="raven">
             <div class="slide-bg"><img src="assets/raven-risk.png" alt="Raven Risk Analyzer"><div class="slide-bg-overlay raven-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
-              <div class="slide-number">04</div>
+              <div class="slide-number">08</div>
+              <div class="slide-tag">MALWARE RESEARCH</div>
               <h3>Raven Risk Analyzer</h3>
-              <p>Malware file detection and risk scoring on the web. Security-first, threat-aware, built to protect.</p>
+              <p>Malware file detection and risk scoring on the web. Security-first, threat-aware, and built with proactive intelligence.</p>
               <a href="https://riskyfileanalyzer.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
             <div class="raven-scanlines"></div>
           </div>
+
+          <!-- Slide 9: Zenitivity -->
           <div class="gallery-slide" data-theme="zen">
             <div class="slide-bg"><img src="assets/zenitivity.png" alt="Zenitivity"><div class="slide-bg-overlay zen-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
-              <div class="slide-number">05</div>
+              <div class="slide-number">09</div>
+              <div class="slide-tag">MINDFUL DESIGN</div>
               <h3>Zenitivity</h3>
-              <p>A Zen-inspired business promotion platform. Clean lines, dark elegance, mindful design philosophy.</p>
+              <p>A Zen-inspired business promotion platform. Clean lines, dark elegance, and mindful UX philosophy.</p>
               <a href="https://zenitivity.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -257,34 +349,237 @@
       </div>
     </section>
 
-    <!-- ============ CONTACT SECTION (DARK) ============ -->
+    <!-- ============ CONTACT SECTION (HIGHLY ANIMATIVE CONVERSATIONAL UI) ============ -->
     <section id="contact" class="contact-section content-section">
+      <div class="contact-ambient-particles"></div>
       <div class="contact-container">
+
         <div class="contact-header" data-motion>
-          <span class="section-tag">GET IN TOUCH</span>
-          <h2>Let's Connect</h2>
-          <p>Have a project in mind? Let's make it happen.</p>
+          <span class="section-tag">INITIATE TRANSMISSION</span>
+          <h2>Let's Build Something Legendary</h2>
+          <p>Answer a few quick questions below to dispatch your message directly to Sahil's inbox.</p>
         </div>
+
+        <!-- Interactive Question Terminal & Form -->
+        <div class="contact-terminal-wrapper" data-motion>
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-title">sahil-connect://transmission-channel</div>
+            <div class="terminal-target">DESTINATION: mrsahilvishwakarmaofficial@gmail.com</div>
+          </div>
+
+          <div class="contact-interactive-card">
+            
+            <!-- Step Progress Indicator -->
+            <div class="contact-steps-indicator">
+              <div class="step-pill active" data-step="1">
+                <span class="step-num">01</span>
+                <span class="step-name">Identity</span>
+              </div>
+              <div class="step-divider"></div>
+              <div class="step-pill" data-step="2">
+                <span class="step-num">02</span>
+                <span class="step-name">Location</span>
+              </div>
+              <div class="step-divider"></div>
+              <div class="step-pill" data-step="3">
+                <span class="step-num">03</span>
+                <span class="step-name">Contact</span>
+              </div>
+              <div class="step-divider"></div>
+              <div class="step-pill" data-step="4">
+                <span class="step-num">04</span>
+                <span class="step-name">Collaboration</span>
+              </div>
+              <div class="step-divider"></div>
+              <div class="step-pill" data-step="5">
+                <span class="step-num">05</span>
+                <span class="step-name">Transmission</span>
+              </div>
+            </div>
+
+            <!-- Interactive Form Steps -->
+            <form id="interactiveContactForm" class="interactive-form" onsubmit="return false;">
+
+              <!-- STEP 1: Name -->
+              <div class="form-step active" data-step-panel="1">
+                <div class="question-header">
+                  <span class="question-tag">QUESTION 01 // IDENTITY</span>
+                  <h3 class="question-title">What is your name or organization?</h3>
+                  <p class="question-subtitle">Let's start with who you are.</p>
+                </div>
+                <div class="input-glow-group">
+                  <span class="input-prefix">guest@visionary:~$ name =</span>
+                  <input type="text" id="senderName" class="terminal-input" placeholder="e.g. John Doe / Cyber Corp" autocomplete="name" required>
+                </div>
+                <div class="step-actions">
+                  <button type="button" class="btn-step btn-next" data-goto="2">
+                    <span>Continue</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 2: Address / Location -->
+              <div class="form-step" data-step-panel="2">
+                <div class="question-header">
+                  <span class="question-tag">QUESTION 02 // LOCATION</span>
+                  <h3 class="question-title">Where are you operating from?</h3>
+                  <p class="question-subtitle">Your city, region, or timezone coordinate.</p>
+                </div>
+                <div class="input-glow-group">
+                  <span class="input-prefix">guest@visionary:~$ location =</span>
+                  <input type="text" id="senderAddress" class="terminal-input" placeholder="e.g. San Francisco, US / Mumbai, India / Remote" autocomplete="address-level2">
+                </div>
+                <div class="step-actions">
+                  <button type="button" class="btn-step btn-prev" data-goto="1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <span>Back</span>
+                  </button>
+                  <button type="button" class="btn-step btn-next" data-goto="3">
+                    <span>Continue</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 3: Contact (Email & Phone/Social) -->
+              <div class="form-step" data-step-panel="3">
+                <div class="question-header">
+                  <span class="question-tag">QUESTION 03 // REACHABILITY</span>
+                  <h3 class="question-title">How should Sahil reach you back?</h3>
+                  <p class="question-subtitle">Provide your primary email and phone or handle.</p>
+                </div>
+                <div class="input-glow-group">
+                  <span class="input-prefix">guest@visionary:~$ email =</span>
+                  <input type="email" id="senderEmail" class="terminal-input" placeholder="your.name@company.com" autocomplete="email" required>
+                </div>
+                <div class="input-glow-group" style="margin-top: 16px;">
+                  <span class="input-prefix">guest@visionary:~$ phone_or_social =</span>
+                  <input type="text" id="senderContact" class="terminal-input" placeholder="+1 (555) 000-0000 or @telegram">
+                </div>
+                <div class="step-actions">
+                  <button type="button" class="btn-step btn-prev" data-goto="2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <span>Back</span>
+                  </button>
+                  <button type="button" class="btn-step btn-next" data-goto="4">
+                    <span>Continue</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 4: Work Type & Purpose -->
+              <div class="form-step" data-step-panel="4">
+                <div class="question-header">
+                  <span class="question-tag">QUESTION 04 // OBJECTIVE</span>
+                  <h3 class="question-title">What work or project do you have in mind?</h3>
+                  <p class="question-subtitle">Select all matching areas and summarize your vision.</p>
+                </div>
+
+                <div class="work-tags-picker">
+                  <button type="button" class="work-tag-btn" data-tag="Cybersecurity & Security Research">🛡️ Cybersecurity</button>
+                  <button type="button" class="work-tag-btn" data-tag="Full-Stack Web App Development">🌐 Full-Stack Web</button>
+                  <button type="button" class="work-tag-btn" data-tag="AI & Intelligent Automation">🤖 AI & Automation</button>
+                  <button type="button" class="work-tag-btn" data-tag="3D & Immersive Web Experience">🎮 3D Web UI</button>
+                  <button type="button" class="work-tag-btn" data-tag="OSINT & Data Extraction">🔍 OSINT / Scraping</button>
+                  <button type="button" class="work-tag-btn" data-tag="Freelance / Contract Hire">💼 Freelance / Contract</button>
+                </div>
+
+                <div class="input-glow-group" style="margin-top: 20px;">
+                  <span class="input-prefix">guest@visionary:~$ project_scope =</span>
+                  <input type="text" id="workSubject" class="terminal-input" placeholder="e.g. Building an interactive web platform / Security audit">
+                </div>
+
+                <div class="step-actions">
+                  <button type="button" class="btn-step btn-prev" data-goto="3">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <span>Back</span>
+                  </button>
+                  <button type="button" class="btn-step btn-next" data-goto="5">
+                    <span>Continue</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 5: Details & Payload Dispatch -->
+              <div class="form-step" data-step-panel="5">
+                <div class="question-header">
+                  <span class="question-tag">QUESTION 05 // SPECIFICATIONS</span>
+                  <h3 class="question-title">Give me the details, timeline, or notes</h3>
+                  <p class="question-subtitle">Everything you need Sahil to know.</p>
+                </div>
+
+                <div class="input-glow-group textarea-glow-group">
+                  <span class="input-prefix">guest@visionary:~$ message_body =</span>
+                  <textarea id="senderMessage" class="terminal-textarea" rows="4" placeholder="Describe requirements, tech stack preferences, timeline, budget, or anything else..."></textarea>
+                </div>
+
+                <!-- Live Transmission Summary -->
+                <div class="transmission-preview" id="transmissionPreview">
+                  <div class="preview-header">
+                    <span class="preview-dot"></span>
+                    <span>READY TO DISPATCH TO: mrsahilvishwakarmaofficial@gmail.com</span>
+                  </div>
+                  <div class="preview-body" id="previewText">
+                    [Click 'Dispatch Email' to generate and launch your pre-formatted transmission]
+                  </div>
+                </div>
+
+                <div class="step-actions dispatch-actions">
+                  <button type="button" class="btn-step btn-prev" data-goto="4">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    <span>Back</span>
+                  </button>
+                  <button type="button" id="btnSendEmail" class="btn-step btn-dispatch">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    <span>Dispatch Email to Sahil</span>
+                  </button>
+                  <button type="button" id="btnCopyEmail" class="btn-step btn-copy">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span>Copy Text</span>
+                  </button>
+                </div>
+
+              </div>
+
+            </form>
+
+            <div id="contactToast" class="contact-toast">Transmission Copied to Clipboard!</div>
+
+          </div>
+        </div>
+
+        <!-- Direct Social & Instant Channels -->
+        <div class="quick-connect-title" data-motion>Or Reach Out Directly via Instant Channels</div>
         <div class="contact-cards">
-          <a href="https://api.whatsapp.com/send/?phone=918795674825&text&type=phone_number&app_absent=0" target="_blank" class="contact-card whatsapp-card" data-cursor-press>
+          <a href="https://api.whatsapp.com/send/?phone=918795674825&text=Hey%20Sahil,%20I%20saw%20your%20portfolio!&type=phone_number&app_absent=0" target="_blank" class="contact-card whatsapp-card" data-cursor-press>
             <div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
             <span class="contact-label">WhatsApp</span>
-            <span class="contact-hint">Message me</span>
+            <span class="contact-hint">+91 8795674825</span>
           </a>
           <a href="https://www.linkedin.com/in/sahil-vishwakarma-185b052b2" target="_blank" class="contact-card linkedin-card" data-cursor-press>
             <div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
             <span class="contact-label">LinkedIn</span>
-            <span class="contact-hint">Connect with me</span>
+            <span class="contact-hint">Connect Profile</span>
           </a>
           <a href="mailto:mrsahilvishwakarmaofficial@gmail.com" class="contact-card email-card" data-cursor-press>
             <div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></div>
             <span class="contact-label">Gmail</span>
-            <span class="contact-hint">Drop an email</span>
+            <span class="contact-hint">Direct Inbox</span>
           </a>
         </div>
+
         <div class="contact-footer" data-motion>
           <p>Designed & crafted by <strong>Sahil Vishwakarma</strong></p>
-          <p class="footer-year">© 2026</p>
+          <p class="footer-email">mrsahilvishwakarmaofficial@gmail.com</p>
+          <p class="footer-year">© 2026 • All Systems Operational</p>
         </div>
       </div>
     </section>
