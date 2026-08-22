@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.setSize(introSection.offsetWidth, introSection.offsetHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // 3D Objects Group
     const group = new THREE.Group();
     scene.add(group);
 
@@ -152,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particleSystem);
 
-    // Mouse Parallax
     let targetMouseX = 0, targetMouseY = 0;
     let currentMouseX = 0, currentMouseY = 0;
 
@@ -161,8 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
       targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
     });
 
-    // Resize
-    function onWindowResize() {
+    function onIntroResize() {
       if (!introSection) return;
       const width = introSection.offsetWidth;
       const height = introSection.offsetHeight;
@@ -170,9 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
     }
-    window.addEventListener('resize', onWindowResize);
+    window.addEventListener('resize', onIntroResize);
 
-    // Animation Loop with Visibility Check
     let isIntroVisible = true;
     const introObs = new IntersectionObserver((entries) => {
       entries.forEach(e => { isIntroVisible = e.isIntersecting; });
@@ -180,27 +176,23 @@ document.addEventListener('DOMContentLoaded', () => {
     introObs.observe(introSection);
 
     let clock = 0;
-    function animate3d() {
-      requestAnimationFrame(animate3d);
+    function animateIntro3d() {
+      requestAnimationFrame(animateIntro3d);
       if (!isIntroVisible) return;
 
       clock += 0.01;
 
-      // Smooth mouse lerp
       currentMouseX += (targetMouseX - currentMouseX) * 0.05;
       currentMouseY += (targetMouseY - currentMouseY) * 0.05;
 
-      // Group rotation & tilt
       group.rotation.x = currentMouseY * 0.4 + Math.sin(clock * 0.5) * 0.1;
       group.rotation.y = currentMouseX * 0.6 + clock * 0.2;
 
-      // Core mesh micro-rotations
       knotMesh.rotation.x += 0.005;
       knotMesh.rotation.y += 0.008;
       icoMesh.rotation.x -= 0.007;
       icoMesh.rotation.z += 0.005;
 
-      // Orbit satellites
       satellites.forEach(sat => {
         sat.userData.angle += sat.userData.speed;
         sat.position.x = Math.cos(sat.userData.angle) * sat.userData.radius;
@@ -210,16 +202,148 @@ document.addEventListener('DOMContentLoaded', () => {
         sat.rotation.y += 0.03;
       });
 
-      // Subtle particle float
       particleSystem.rotation.y = clock * 0.03;
-
       renderer.render(scene, camera);
     }
-    animate3d();
+    animateIntro3d();
   }
 
   /* =========================================
-     4. SCROLL REVEAL [data-motion]
+     4. 3D WEBGL BACKGROUND (SKILLS SECTION)
+     ========================================= */
+  const skillsSection = document.getElementById('skills');
+  const skills3dCanvas = document.getElementById('skills3dCanvas');
+
+  if (skills3dCanvas && typeof THREE !== 'undefined') {
+    const sScene = new THREE.Scene();
+    const sCamera = new THREE.PerspectiveCamera(55, skillsSection.offsetWidth / skillsSection.offsetHeight, 0.1, 1000);
+    sCamera.position.z = 30;
+
+    const sRenderer = new THREE.WebGLRenderer({
+      canvas: skills3dCanvas,
+      alpha: true,
+      antialias: true
+    });
+    sRenderer.setSize(skillsSection.offsetWidth, skillsSection.offsetHeight);
+    sRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const sGroup = new THREE.Group();
+    sScene.add(sGroup);
+
+    // 1. Dual Concentric 3D Rings
+    const ringGeo1 = new THREE.TorusGeometry(10, 0.15, 16, 100);
+    const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.35 });
+    const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+    sGroup.add(ring1);
+
+    const ringGeo2 = new THREE.TorusGeometry(14, 0.2, 16, 100);
+    const ringMat2 = new THREE.MeshBasicMaterial({ color: 0x6c5ce7, wireframe: true, transparent: true, opacity: 0.25 });
+    const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+    ring2.rotation.x = Math.PI / 3;
+    sGroup.add(ring2);
+
+    const ringGeo3 = new THREE.TorusGeometry(18, 0.25, 16, 100);
+    const ringMat3 = new THREE.MeshBasicMaterial({ color: 0x00ff88, wireframe: true, transparent: true, opacity: 0.2 });
+    const ring3 = new THREE.Mesh(ringGeo3, ringMat3);
+    ring3.rotation.y = Math.PI / 4;
+    sGroup.add(ring3);
+
+    // 2. Floating 3D Polyhedrons
+    const polyhedrons = [];
+    for (let i = 0; i < 12; i++) {
+      const geo = i % 2 === 0 ? new THREE.DodecahedronGeometry(1.5, 0) : new THREE.IcosahedronGeometry(1.2, 0);
+      const mat = new THREE.MeshBasicMaterial({
+        color: i % 3 === 0 ? 0x00d4ff : (i % 3 === 1 ? 0xa855f7 : 0x00ff88),
+        wireframe: true,
+        transparent: true,
+        opacity: 0.45
+      });
+      const poly = new THREE.Mesh(geo, mat);
+      poly.position.set(
+        (Math.random() - 0.5) * 50,
+        (Math.random() - 0.5) * 35,
+        (Math.random() - 0.5) * 20
+      );
+      poly.userData = {
+        rx: (Math.random() - 0.5) * 0.02,
+        ry: (Math.random() - 0.5) * 0.02,
+        floatSpeed: 0.001 + Math.random() * 0.002,
+        floatAmp: 1 + Math.random() * 2,
+        initY: poly.position.y
+      };
+      polyhedrons.push(poly);
+      sGroup.add(poly);
+    }
+
+    // 3. Cyber Matrix Point Grid
+    const sParticleCount = 250;
+    const sParticleGeo = new THREE.BufferGeometry();
+    const sParticlePos = new Float32Array(sParticleCount * 3);
+
+    for (let i = 0; i < sParticleCount * 3; i += 3) {
+      sParticlePos[i] = (Math.random() - 0.5) * 70;
+      sParticlePos[i + 1] = (Math.random() - 0.5) * 50;
+      sParticlePos[i + 2] = (Math.random() - 0.5) * 30;
+    }
+    sParticleGeo.setAttribute('position', new THREE.BufferAttribute(sParticlePos, 3));
+    const sParticleMat = new THREE.PointsMaterial({ color: 0x6c5ce7, size: 0.3, transparent: true, opacity: 0.5 });
+    const sParticles = new THREE.Points(sParticleGeo, sParticleMat);
+    sScene.add(sParticles);
+
+    let sTargetMouseX = 0, sTargetMouseY = 0;
+    let sCurrentMouseX = 0, sCurrentMouseY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      sTargetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      sTargetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    function onSkillsResize() {
+      if (!skillsSection) return;
+      const width = skillsSection.offsetWidth;
+      const height = skillsSection.offsetHeight;
+      sCamera.aspect = width / height;
+      sCamera.updateProjectionMatrix();
+      sRenderer.setSize(width, height);
+    }
+    window.addEventListener('resize', onSkillsResize);
+
+    let isSkillsVisible = true;
+    const skillsObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { isSkillsVisible = e.isIntersecting; });
+    }, { threshold: 0.05 });
+    skillsObs.observe(skillsSection);
+
+    let sClock = 0;
+    function animateSkills3d() {
+      requestAnimationFrame(animateSkills3d);
+      if (!isSkillsVisible) return;
+
+      sClock += 0.01;
+      sCurrentMouseX += (sTargetMouseX - sCurrentMouseX) * 0.05;
+      sCurrentMouseY += (sTargetMouseY - sCurrentMouseY) * 0.05;
+
+      sGroup.rotation.y = sCurrentMouseX * 0.4 + sClock * 0.15;
+      sGroup.rotation.x = sCurrentMouseY * 0.3;
+
+      ring1.rotation.z += 0.004;
+      ring2.rotation.y += 0.005;
+      ring3.rotation.x += 0.006;
+
+      polyhedrons.forEach((poly, idx) => {
+        poly.rotation.x += poly.userData.rx;
+        poly.rotation.y += poly.userData.ry;
+        poly.position.y = poly.userData.initY + Math.sin(sClock * 2 + idx) * poly.userData.floatAmp;
+      });
+
+      sParticles.rotation.y = -sClock * 0.02;
+      sRenderer.render(sScene, sCamera);
+    }
+    animateSkills3d();
+  }
+
+  /* =========================================
+     5. SCROLL REVEAL [data-motion]
      ========================================= */
   const motionObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -241,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.title-word').forEach(w => titleObs.observe(w));
 
   /* =========================================
-     5. STAT COUNTING
+     6. STAT COUNTING
      ========================================= */
   const statObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -262,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.stat-number[data-count]').forEach(el => statObs.observe(el));
 
   /* =========================================
-     6. MATRIX RAIN
+     7. MATRIX RAIN
      ========================================= */
   const matrixCanvas = document.getElementById('matrixCanvas');
   if (matrixCanvas) {
@@ -319,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =========================================
-     7. HORIZONTAL GALLERY — STICKY + TRANSLATE
+     8. HORIZONTAL GALLERY — STICKY + TRANSLATE
      ========================================= */
   const gallerySection = document.getElementById('project-gallery');
   const galleryTrack = document.getElementById('galleryTrack');
@@ -332,7 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrolled = Math.max(0, -rect.top);
     const progress = Math.min(1, scrolled / Math.max(sectionHeight, 1));
 
-    // Total horizontal distance to travel across all slides
     const slideCount = galleryTrack.children.length;
     const totalWidth = (slideCount - 1) * window.innerWidth;
     const translateX = -progress * totalWidth;
@@ -341,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =========================================
-     8. SAKURA PARTICLES
+     9. SAKURA PARTICLES
      ========================================= */
   const sakura = document.getElementById('sakuraParticles');
   if (sakura) {
@@ -358,9 +481,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =========================================
-     9. SKILLS — VERTICAL BAR + GAME LOAD %
+     10. SKILLS — VERTICAL BAR + GAME LOAD %
      ========================================= */
-  const skillsSection = document.getElementById('skills');
   const centerBarFill = document.getElementById('centerBarFill');
   const centerBarValue = document.getElementById('centerBarValue');
   const skillsGrid = document.getElementById('skillsGrid');
@@ -392,172 +514,61 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =========================================
-     10. INTERACTIVE CONVERSATIONAL CONTACT FLOW
+     11. CLEAN GLASSMORPHISM CONTACT FORM
      ========================================= */
   const TARGET_EMAIL = 'mrsahilvishwakarmaofficial@gmail.com';
-  let currentStep = 1;
-  const selectedTags = new Set();
-
-  const stepPills = document.querySelectorAll('.step-pill');
-  const stepPanels = document.querySelectorAll('.form-step');
-  const nameInput = document.getElementById('senderName');
-  const addressInput = document.getElementById('senderAddress');
-  const emailInput = document.getElementById('senderEmail');
-  const contactInput = document.getElementById('senderContact');
-  const workSubjectInput = document.getElementById('workSubject');
-  const messageInput = document.getElementById('senderMessage');
-  const previewText = document.getElementById('previewText');
-  const btnSendEmail = document.getElementById('btnSendEmail');
-  const btnCopyEmail = document.getElementById('btnCopyEmail');
+  const btnSubmitContact = document.getElementById('btnSubmitContact');
+  const contactName = document.getElementById('contactName');
+  const contactEmail = document.getElementById('contactEmail');
+  const contactAddress = document.getElementById('contactAddress');
+  const contactSubject = document.getElementById('contactSubject');
+  const contactMessage = document.getElementById('contactMessage');
   const contactToast = document.getElementById('contactToast');
 
   function showToast(msg) {
     if (!contactToast) return;
     contactToast.textContent = msg;
     contactToast.classList.add('show');
-    setTimeout(() => { contactToast.classList.remove('show'); }, 3000);
+    setTimeout(() => { contactToast.classList.remove('show'); }, 3500);
   }
 
-  function updateTransmissionSummary() {
-    const name = nameInput?.value.trim() || '[Your Name / Org]';
-    const address = addressInput?.value.trim() || '[Your Location / Remote]';
-    const email = emailInput?.value.trim() || '[Your Email]';
-    const contact = contactInput?.value.trim() || '[Contact Handle / Phone]';
-    const tagsArr = Array.from(selectedTags);
-    const tagStr = tagsArr.length > 0 ? tagsArr.join(', ') : 'General Collaboration';
-    const subject = workSubjectInput?.value.trim() || 'Exciting Project / Collaboration';
-    const details = messageInput?.value.trim() || '[Project Details & Timeline]';
+  if (btnSubmitContact) {
+    btnSubmitContact.addEventListener('click', () => {
+      const name = contactName?.value.trim() || '';
+      const email = contactEmail?.value.trim() || '';
+      const address = contactAddress?.value.trim() || 'Not specified';
+      const subject = contactSubject?.value.trim() || 'Portfolio Inquiry';
+      const message = contactMessage?.value.trim() || '';
 
-    const summary = `=== TRANSMISSION TO SAHIL VISHWAKARMA ===
-FROM: ${name}
-LOCATION: ${address}
-CONTACT: ${email} | ${contact}
-AREA: ${tagStr}
-SUBJECT: ${subject}
-
-DETAILS:
-${details}
-=========================================`;
-
-    if (previewText) previewText.textContent = summary;
-    return { name, address, email, contact, tagStr, subject, details, summary };
-  }
-
-  function setStep(stepNum) {
-    const num = Math.max(1, Math.min(5, stepNum));
-    currentStep = num;
-
-    stepPanels.forEach(panel => {
-      const panelStep = parseInt(panel.dataset.stepPanel);
-      panel.classList.toggle('active', panelStep === currentStep);
-    });
-
-    stepPills.forEach(pill => {
-      const pStep = parseInt(pill.dataset.step);
-      pill.classList.toggle('active', pStep === currentStep);
-      pill.classList.toggle('completed', pStep < currentStep);
-    });
-
-    // Auto-focus input on active step
-    setTimeout(() => {
-      const activePanel = document.querySelector(`.form-step[data-step-panel="${currentStep}"]`);
-      if (activePanel) {
-        const input = activePanel.querySelector('input, textarea');
-        if (input) input.focus();
+      if (!name || !email) {
+        showToast('Please fill in your name and email.');
+        if (!name && contactName) contactName.focus();
+        else if (!email && contactEmail) contactEmail.focus();
+        return;
       }
-    }, 100);
 
-    if (currentStep === 5) {
-      updateTransmissionSummary();
-    }
-  }
-
-  // Next / Prev Button Clicks
-  document.querySelectorAll('.btn-next, .btn-prev').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetStep = parseInt(btn.dataset.goto);
-      if (targetStep) setStep(targetStep);
-    });
-  });
-
-  // Direct pill clicks
-  stepPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const targetStep = parseInt(pill.dataset.step);
-      if (targetStep) setStep(targetStep);
-    });
-  });
-
-  // Enter Key Progression in inputs
-  [nameInput, addressInput, emailInput, contactInput, workSubjectInput].forEach(inp => {
-    if (inp) {
-      inp.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          setStep(currentStep + 1);
-        }
-      });
-      inp.addEventListener('input', updateTransmissionSummary);
-    }
-  });
-  if (messageInput) messageInput.addEventListener('input', updateTransmissionSummary);
-
-  // Work Tag Picker Buttons
-  document.querySelectorAll('.work-tag-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tag = btn.dataset.tag;
-      if (selectedTags.has(tag)) {
-        selectedTags.delete(tag);
-        btn.classList.remove('selected');
-      } else {
-        selectedTags.add(tag);
-        btn.classList.add('selected');
-      }
-      updateTransmissionSummary();
-    });
-  });
-
-  // Action: Dispatch Email
-  if (btnSendEmail) {
-    btnSendEmail.addEventListener('click', () => {
-      const data = updateTransmissionSummary();
-      const mailSubject = encodeURIComponent(`[Portfolio Contact] ${data.subject} — ${data.name}`);
+      const mailSubject = encodeURIComponent(`[Portfolio Contact] ${subject} — ${name}`);
       const mailBody = encodeURIComponent(`Hi Sahil,
 
-I would love to connect with you! Here are my details:
+Name: ${name}
+Email: ${email}
+Location: ${address}
+Subject: ${subject}
 
-Name / Organization: ${data.name}
-Location: ${data.address}
-Email: ${data.email}
-Phone / Social: ${data.contact}
-Collaboration Area: ${data.tagStr}
-
-Project Overview:
-${data.details}
+Message:
+${message}
 
 Best regards,
-${data.name}`);
+${name}`);
 
       const mailtoUrl = `mailto:${TARGET_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
-      showToast('Launching Email Client to dispatch to mrsahilvishwakarmaofficial@gmail.com...');
+      showToast('Opening your email client...');
       window.location.href = mailtoUrl;
     });
   }
 
-  // Action: Copy Text
-  if (btnCopyEmail) {
-    btnCopyEmail.addEventListener('click', () => {
-      const data = updateTransmissionSummary();
-      navigator.clipboard.writeText(data.summary).then(() => {
-        showToast('✓ Formatted Transmission Copied to Clipboard!');
-      }).catch(() => {
-        showToast('✓ Ready! Email: ' + TARGET_EMAIL);
-      });
-    });
-  }
-
   /* =========================================
-     11. MASTER SCROLL
+     12. MASTER SCROLL
      ========================================= */
   let ticking = false;
   window.addEventListener('scroll', () => {

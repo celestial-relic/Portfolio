@@ -54,7 +54,6 @@
         <div class="intro-label" data-motion>
           <span class="label-line"></span>
           <span>INTRODUCTION</span>
-          <span class="badge-3d-indicator">3D IMMERSIVE</span>
         </div>
         <div class="intro-grid">
           <div class="intro-main">
@@ -167,23 +166,12 @@
       <div class="gallery-pin-spacer">
         <div class="gallery-track" id="galleryTrack">
 
-          <!-- Slide 0: Gallery Intro -->
+          <!-- Slide 0: Gallery Intro (Clean without pill names) -->
           <div class="gallery-slide gallery-intro-slide">
             <div class="gallery-intro-content">
               <span class="section-tag" data-motion>FEATURED WORK</span>
               <h2 data-motion>Projects</h2>
-              <p data-motion>Scroll to explore my full craft roster →</p>
-              <div class="gallery-indicator-pills">
-                <span>01 Simulation</span>
-                <span>02 Japan</span>
-                <span>03 Minecraft</span>
-                <span>04 MedAssist AI</span>
-                <span>05 Football AQX</span>
-                <span>06 CodeFlow</span>
-                <span>07 Character</span>
-                <span>08 Raven Risk</span>
-                <span>09 Zenitivity</span>
-              </div>
+              <p data-motion>Scroll to explore my craft →</p>
             </div>
           </div>
 
@@ -213,7 +201,7 @@
             <div class="japan-particles" id="sakuraParticles"></div>
           </div>
 
-          <!-- Slide 3: MineWithMax (NEW) -->
+          <!-- Slide 3: MineWithMax -->
           <div class="gallery-slide" data-theme="minecraft">
             <div class="slide-bg"><img src="assets/minecraft-bg.jpg" alt="MineWithMax"><div class="slide-bg-overlay minecraft-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
@@ -223,12 +211,9 @@
               <p>An interactive Minecraft cherry-blossom biome world featuring custom voxel pixel art, custom HUD inventory, soundscape ambience, and retro gaming mechanics.</p>
               <a href="https://minewithmax.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
-            <div class="minecraft-particles">
-              <div class="pixel-block-decor"></div>
-            </div>
           </div>
 
-          <!-- Slide 4: MedAssist AI (NEW) -->
+          <!-- Slide 4: MedAssist AI -->
           <div class="gallery-slide" data-theme="medassist">
             <div class="slide-bg"><img src="assets/medassist-bg.jpg" alt="MedAssist AI"><div class="slide-bg-overlay medassist-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
@@ -238,10 +223,9 @@
               <p>Intelligent AI diagnostic and medical triage assistant. Features real-time symptom analysis, lab report breakdown, dosage scheduling, and emergency assistance.</p>
               <a href="https://medassistaitool.lovable.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
-            <div class="medical-pulse-line"></div>
           </div>
 
-          <!-- Slide 5: Football AQX (NEW) -->
+          <!-- Slide 5: Football AQX -->
           <div class="gallery-slide" data-theme="football">
             <div class="slide-bg"><img src="assets/football-bg.jpg" alt="Football AQX"><div class="slide-bg-overlay football-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
@@ -251,10 +235,9 @@
               <p>Advanced football intelligence and scouting analytics platform. Real-time pitch heatmaps, player radar matrices, tactical vector breakdown, and match simulations.</p>
               <a href="https://footballaqx.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
-            <div class="football-radar-glow"></div>
           </div>
 
-          <!-- Slide 6: CodeFlow Analyzer (NEW) -->
+          <!-- Slide 6: CodeFlow Analyzer -->
           <div class="gallery-slide" data-theme="codeflow">
             <div class="slide-bg"><img src="assets/codeflow-bg.jpg" alt="CodeFlow Analyzer"><div class="slide-bg-overlay codeflow-overlay"></div></div>
             <div class="slide-content" data-cursor-press>
@@ -264,7 +247,6 @@
               <p>Multi-language AST execution tracer and flowchart visualizer. Transforms complex code logic into interactive node graphs, call-trees, and runtime states.</p>
               <a href="https://codeflowanalyzer.netlify.app/" target="_blank" class="slide-link"><span>View Live</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
             </div>
-            <div class="code-ast-glow"></div>
           </div>
 
           <!-- Slide 7: Character Intro -->
@@ -308,256 +290,106 @@
       </div>
     </section>
 
-    <!-- ============ SKILLS SECTION (WHITE THEME) ============ -->
+    <!-- ============ SKILLS SECTION (3D DARK CYBER ENVIRONMENT) ============ -->
     <section id="skills" class="skills-section content-section">
+      <!-- 3D Background Canvas -->
+      <canvas id="skills3dCanvas" class="skills-3d-canvas"></canvas>
+      <div class="skills-ambient-glow"></div>
+
       <div class="skills-container">
         <div class="skills-header" data-motion>
-          <span class="section-tag dark-tag">PROFICIENCY</span>
+          <span class="section-tag">PROFICIENCY & CAPABILITIES</span>
           <h2>Skills & Expertise</h2>
-          <p>Measured. Proven. Always growing.</p>
+          <p>Measured. Battle-tested. Continuously expanding.</p>
         </div>
         <div class="skills-layout" id="skillsGrid">
           <div class="skills-col skills-left">
-            <div class="skill-item" data-level="75" data-motion><span class="skill-label">Python</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="60" data-motion><span class="skill-label">Java</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="92" data-motion><span class="skill-label">HTML</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="88" data-motion><span class="skill-label">CSS</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="80" data-motion><span class="skill-label">Modern UI</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="65" data-motion><span class="skill-label">Auth Systems</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="72" data-motion><span class="skill-label">API Integration</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="85" data-motion><span class="skill-label">AI-Assisted Dev</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="58" data-motion><span class="skill-label">Data Analytics</span><span class="skill-val">0%</span></div>
-            <div class="skill-item" data-level="78" data-motion><span class="skill-label">Git</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="75" data-motion data-cursor-press><span class="skill-label">Python</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="60" data-motion data-cursor-press><span class="skill-label">Java</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="92" data-motion data-cursor-press><span class="skill-label">HTML5</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="88" data-motion data-cursor-press><span class="skill-label">CSS3 / Modern UI</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="80" data-motion data-cursor-press><span class="skill-label">Three.js / 3D Web</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="65" data-motion data-cursor-press><span class="skill-label">Auth Systems</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="72" data-motion data-cursor-press><span class="skill-label">API Integration</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="85" data-motion data-cursor-press><span class="skill-label">AI-Assisted Dev</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="58" data-motion data-cursor-press><span class="skill-label">Data Analytics</span><span class="skill-val">0%</span></div>
+            <div class="skill-item" data-level="78" data-motion data-cursor-press><span class="skill-label">Git / Versioning</span><span class="skill-val">0%</span></div>
           </div>
           <div class="skills-center-bar">
             <div class="center-bar-track"><div class="center-bar-fill" id="centerBarFill"></div></div>
             <div class="center-bar-value" id="centerBarValue">0</div>
           </div>
           <div class="skills-col skills-right">
-            <div class="skill-item" data-level="80" data-motion><span class="skill-val">0%</span><span class="skill-label">GitHub</span></div>
-            <div class="skill-item" data-level="87" data-motion><span class="skill-val">0%</span><span class="skill-label">Web Dev</span></div>
-            <div class="skill-item" data-level="70" data-motion><span class="skill-val">0%</span><span class="skill-label">Linux</span></div>
-            <div class="skill-item" data-level="76" data-motion><span class="skill-val">0%</span><span class="skill-label">Cyber Security</span></div>
-            <div class="skill-item" data-level="68" data-motion><span class="skill-val">0%</span><span class="skill-label">Editing</span></div>
-            <div class="skill-item" data-level="72" data-motion><span class="skill-val">0%</span><span class="skill-label">Content Creation</span></div>
-            <div class="skill-item" data-level="90" data-motion><span class="skill-val">0%</span><span class="skill-label">Computer Fund.</span></div>
-            <div class="skill-item" data-level="82" data-motion><span class="skill-val">0%</span><span class="skill-label">Problem Solving</span></div>
-            <div class="skill-item" data-level="75" data-motion><span class="skill-val">0%</span><span class="skill-label">Deploy & Host</span></div>
-            <div class="skill-item" data-level="70" data-motion><span class="skill-val">0%</span><span class="skill-label">Full-Stack</span></div>
+            <div class="skill-item" data-level="80" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">GitHub CI/CD</span></div>
+            <div class="skill-item" data-level="87" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">Full-Stack Web</span></div>
+            <div class="skill-item" data-level="70" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">Linux Systems</span></div>
+            <div class="skill-item" data-level="76" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">Cyber Security</span></div>
+            <div class="skill-item" data-level="68" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">Media & Motion</span></div>
+            <div class="skill-item" data-level="72" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">UI/UX Design</span></div>
+            <div class="skill-item" data-level="90" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">CS Fundamentals</span></div>
+            <div class="skill-item" data-level="82" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">Problem Solving</span></div>
+            <div class="skill-item" data-level="75" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">Deploy & Hosting</span></div>
+            <div class="skill-item" data-level="70" data-motion data-cursor-press><span class="skill-val">0%</span><span class="skill-label">Reverse Eng.</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ CONTACT SECTION (HIGHLY ANIMATIVE CONVERSATIONAL UI) ============ -->
+    <!-- ============ CONTACT SECTION (ELEGANT GLASSMORPHISM) ============ -->
     <section id="contact" class="contact-section content-section">
-      <div class="contact-ambient-particles"></div>
+      <div class="contact-ambient-glow"></div>
       <div class="contact-container">
 
         <div class="contact-header" data-motion>
-          <span class="section-tag">INITIATE TRANSMISSION</span>
-          <h2>Let's Build Something Legendary</h2>
-          <p>Answer a few quick questions below to dispatch your message directly to Sahil's inbox.</p>
+          <span class="section-tag">GET IN TOUCH</span>
+          <h2>Let's Connect</h2>
+          <p>Have a project in mind, a question, or want to collaborate? Send a message directly to my inbox.</p>
         </div>
 
-        <!-- Interactive Question Terminal & Form -->
-        <div class="contact-terminal-wrapper" data-motion>
-          <div class="terminal-bar">
-            <div class="terminal-dots">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-title">sahil-connect://transmission-channel</div>
-            <div class="terminal-target">DESTINATION: mrsahilvishwakarmaofficial@gmail.com</div>
-          </div>
-
-          <div class="contact-interactive-card">
+        <!-- Clean Glassmorphism Contact Card -->
+        <div class="contact-glass-card" data-motion>
+          <form id="contactForm" class="contact-form" onsubmit="return false;">
             
-            <!-- Step Progress Indicator -->
-            <div class="contact-steps-indicator">
-              <div class="step-pill active" data-step="1">
-                <span class="step-num">01</span>
-                <span class="step-name">Identity</span>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName">Your Name</label>
+                <input type="text" id="contactName" class="glass-input" placeholder="Sahil / John Doe" autocomplete="name" required>
               </div>
-              <div class="step-divider"></div>
-              <div class="step-pill" data-step="2">
-                <span class="step-num">02</span>
-                <span class="step-name">Location</span>
-              </div>
-              <div class="step-divider"></div>
-              <div class="step-pill" data-step="3">
-                <span class="step-num">03</span>
-                <span class="step-name">Contact</span>
-              </div>
-              <div class="step-divider"></div>
-              <div class="step-pill" data-step="4">
-                <span class="step-num">04</span>
-                <span class="step-name">Collaboration</span>
-              </div>
-              <div class="step-divider"></div>
-              <div class="step-pill" data-step="5">
-                <span class="step-num">05</span>
-                <span class="step-name">Transmission</span>
+              <div class="form-group">
+                <label for="contactEmail">Your Email</label>
+                <input type="email" id="contactEmail" class="glass-input" placeholder="you@domain.com" autocomplete="email" required>
               </div>
             </div>
 
-            <!-- Interactive Form Steps -->
-            <form id="interactiveContactForm" class="interactive-form" onsubmit="return false;">
-
-              <!-- STEP 1: Name -->
-              <div class="form-step active" data-step-panel="1">
-                <div class="question-header">
-                  <span class="question-tag">QUESTION 01 // IDENTITY</span>
-                  <h3 class="question-title">What is your name or organization?</h3>
-                  <p class="question-subtitle">Let's start with who you are.</p>
-                </div>
-                <div class="input-glow-group">
-                  <span class="input-prefix">guest@visionary:~$ name =</span>
-                  <input type="text" id="senderName" class="terminal-input" placeholder="e.g. John Doe / Cyber Corp" autocomplete="name" required>
-                </div>
-                <div class="step-actions">
-                  <button type="button" class="btn-step btn-next" data-goto="2">
-                    <span>Continue</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </button>
-                </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactAddress">Your Location / City</label>
+                <input type="text" id="contactAddress" class="glass-input" placeholder="e.g. Agra, India / Remote" autocomplete="address-level2">
               </div>
-
-              <!-- STEP 2: Address / Location -->
-              <div class="form-step" data-step-panel="2">
-                <div class="question-header">
-                  <span class="question-tag">QUESTION 02 // LOCATION</span>
-                  <h3 class="question-title">Where are you operating from?</h3>
-                  <p class="question-subtitle">Your city, region, or timezone coordinate.</p>
-                </div>
-                <div class="input-glow-group">
-                  <span class="input-prefix">guest@visionary:~$ location =</span>
-                  <input type="text" id="senderAddress" class="terminal-input" placeholder="e.g. San Francisco, US / Mumbai, India / Remote" autocomplete="address-level2">
-                </div>
-                <div class="step-actions">
-                  <button type="button" class="btn-step btn-prev" data-goto="1">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                    <span>Back</span>
-                  </button>
-                  <button type="button" class="btn-step btn-next" data-goto="3">
-                    <span>Continue</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </button>
-                </div>
+              <div class="form-group">
+                <label for="contactSubject">Subject / Work Type</label>
+                <input type="text" id="contactSubject" class="glass-input" placeholder="Web Development / Cybersecurity / General Inquiry">
               </div>
+            </div>
 
-              <!-- STEP 3: Contact (Email & Phone/Social) -->
-              <div class="form-step" data-step-panel="3">
-                <div class="question-header">
-                  <span class="question-tag">QUESTION 03 // REACHABILITY</span>
-                  <h3 class="question-title">How should Sahil reach you back?</h3>
-                  <p class="question-subtitle">Provide your primary email and phone or handle.</p>
-                </div>
-                <div class="input-glow-group">
-                  <span class="input-prefix">guest@visionary:~$ email =</span>
-                  <input type="email" id="senderEmail" class="terminal-input" placeholder="your.name@company.com" autocomplete="email" required>
-                </div>
-                <div class="input-glow-group" style="margin-top: 16px;">
-                  <span class="input-prefix">guest@visionary:~$ phone_or_social =</span>
-                  <input type="text" id="senderContact" class="terminal-input" placeholder="+1 (555) 000-0000 or @telegram">
-                </div>
-                <div class="step-actions">
-                  <button type="button" class="btn-step btn-prev" data-goto="2">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                    <span>Back</span>
-                  </button>
-                  <button type="button" class="btn-step btn-next" data-goto="4">
-                    <span>Continue</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </button>
-                </div>
-              </div>
+            <div class="form-group full-width">
+              <label for="contactMessage">Your Message / Work Details</label>
+              <textarea id="contactMessage" class="glass-textarea" rows="4" placeholder="Tell me about your project, timeline, or any questions..." required></textarea>
+            </div>
 
-              <!-- STEP 4: Work Type & Purpose -->
-              <div class="form-step" data-step-panel="4">
-                <div class="question-header">
-                  <span class="question-tag">QUESTION 04 // OBJECTIVE</span>
-                  <h3 class="question-title">What work or project do you have in mind?</h3>
-                  <p class="question-subtitle">Select all matching areas and summarize your vision.</p>
-                </div>
+            <div class="form-actions">
+              <button type="button" id="btnSubmitContact" class="btn-send-message">
+                <span>Send Message</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
 
-                <div class="work-tags-picker">
-                  <button type="button" class="work-tag-btn" data-tag="Cybersecurity & Security Research">🛡️ Cybersecurity</button>
-                  <button type="button" class="work-tag-btn" data-tag="Full-Stack Web App Development">🌐 Full-Stack Web</button>
-                  <button type="button" class="work-tag-btn" data-tag="AI & Intelligent Automation">🤖 AI & Automation</button>
-                  <button type="button" class="work-tag-btn" data-tag="3D & Immersive Web Experience">🎮 3D Web UI</button>
-                  <button type="button" class="work-tag-btn" data-tag="OSINT & Data Extraction">🔍 OSINT / Scraping</button>
-                  <button type="button" class="work-tag-btn" data-tag="Freelance / Contract Hire">💼 Freelance / Contract</button>
-                </div>
+          </form>
 
-                <div class="input-glow-group" style="margin-top: 20px;">
-                  <span class="input-prefix">guest@visionary:~$ project_scope =</span>
-                  <input type="text" id="workSubject" class="terminal-input" placeholder="e.g. Building an interactive web platform / Security audit">
-                </div>
-
-                <div class="step-actions">
-                  <button type="button" class="btn-step btn-prev" data-goto="3">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                    <span>Back</span>
-                  </button>
-                  <button type="button" class="btn-step btn-next" data-goto="5">
-                    <span>Continue</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </button>
-                </div>
-              </div>
-
-              <!-- STEP 5: Details & Payload Dispatch -->
-              <div class="form-step" data-step-panel="5">
-                <div class="question-header">
-                  <span class="question-tag">QUESTION 05 // SPECIFICATIONS</span>
-                  <h3 class="question-title">Give me the details, timeline, or notes</h3>
-                  <p class="question-subtitle">Everything you need Sahil to know.</p>
-                </div>
-
-                <div class="input-glow-group textarea-glow-group">
-                  <span class="input-prefix">guest@visionary:~$ message_body =</span>
-                  <textarea id="senderMessage" class="terminal-textarea" rows="4" placeholder="Describe requirements, tech stack preferences, timeline, budget, or anything else..."></textarea>
-                </div>
-
-                <!-- Live Transmission Summary -->
-                <div class="transmission-preview" id="transmissionPreview">
-                  <div class="preview-header">
-                    <span class="preview-dot"></span>
-                    <span>READY TO DISPATCH TO: mrsahilvishwakarmaofficial@gmail.com</span>
-                  </div>
-                  <div class="preview-body" id="previewText">
-                    [Click 'Dispatch Email' to generate and launch your pre-formatted transmission]
-                  </div>
-                </div>
-
-                <div class="step-actions dispatch-actions">
-                  <button type="button" class="btn-step btn-prev" data-goto="4">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                    <span>Back</span>
-                  </button>
-                  <button type="button" id="btnSendEmail" class="btn-step btn-dispatch">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                    <span>Dispatch Email to Sahil</span>
-                  </button>
-                  <button type="button" id="btnCopyEmail" class="btn-step btn-copy">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                    <span>Copy Text</span>
-                  </button>
-                </div>
-
-              </div>
-
-            </form>
-
-            <div id="contactToast" class="contact-toast">Transmission Copied to Clipboard!</div>
-
-          </div>
+          <div id="contactToast" class="contact-toast">Opening your email client...</div>
         </div>
 
         <!-- Direct Social & Instant Channels -->
-        <div class="quick-connect-title" data-motion>Or Reach Out Directly via Instant Channels</div>
         <div class="contact-cards">
           <a href="https://api.whatsapp.com/send/?phone=918795674825&text=Hey%20Sahil,%20I%20saw%20your%20portfolio!&type=phone_number&app_absent=0" target="_blank" class="contact-card whatsapp-card" data-cursor-press>
             <div class="contact-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
