@@ -380,17 +380,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =========================================
-     5. SCROLL REVEAL & SMOOTH SECTION FADES
+     5. SCROLL REVEAL [data-motion]
      ========================================= */
   const motionObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      } else if (e.boundingClientRect.top > 0) {
-        e.target.classList.remove('visible');
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); motionObs.unobserve(e.target); }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('[data-motion]').forEach(el => motionObs.observe(el));
 
   /* Title words */
@@ -399,12 +395,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.isIntersecting) {
         const p = e.target.closest('.intro-title');
         if (p) p.querySelectorAll('.title-word').forEach(w => w.classList.add('visible'));
-      } else if (e.boundingClientRect.top > 0) {
-        const p = e.target.closest('.intro-title');
-        if (p) p.querySelectorAll('.title-word').forEach(w => w.classList.remove('visible'));
+        titleObs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.2 });
   document.querySelectorAll('.title-word').forEach(w => titleObs.observe(w));
 
   /* =========================================
