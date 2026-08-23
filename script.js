@@ -366,13 +366,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* =========================================
-     5. SCROLL REVEAL [data-motion]
+     5. SCROLL REVEAL & SMOOTH SECTION FADES
      ========================================= */
   const motionObs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); motionObs.unobserve(e.target); }
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      } else if (e.boundingClientRect.top > 0) {
+        e.target.classList.remove('visible');
+      }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('[data-motion]').forEach(el => motionObs.observe(el));
 
   /* Title words */
@@ -381,11 +385,111 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.isIntersecting) {
         const p = e.target.closest('.intro-title');
         if (p) p.querySelectorAll('.title-word').forEach(w => w.classList.add('visible'));
-        titleObs.unobserve(e.target);
+      } else if (e.boundingClientRect.top > 0) {
+        const p = e.target.closest('.intro-title');
+        if (p) p.querySelectorAll('.title-word').forEach(w => w.classList.remove('visible'));
       }
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.15 });
   document.querySelectorAll('.title-word').forEach(w => titleObs.observe(w));
+
+  /* =========================================
+     5B. CURSOR STYLE SWITCHER ENGINE
+     ========================================= */
+  const cursorDropdown = document.getElementById('cursorDropdown');
+  const cursorDropdownTrigger = document.getElementById('cursorDropdownTrigger');
+  const cursorCurrentIcon = document.getElementById('cursorCurrentIcon');
+  const cursorCurrentLabel = document.getElementById('cursorCurrentLabel');
+  const cursorOptions = document.querySelectorAll('.cursor-option');
+
+  const CURSOR_CONFIGS = {
+    sukuna: {
+      name: 'Sukuna Finger (Default)',
+      icon: '👉',
+      cssUrl: null,
+      customRule: "* { cursor: url('https://cdn.cursors-4u.net/previews/sukuna-finger-c7e60abd-72.webp') 12 14, auto !important; }"
+    },
+    bongo_cat: {
+      name: 'Bongo Cat (Slapping Cat)',
+      icon: '🐱',
+      cssUrl: 'https://cdn.cursors-4u.net/cursors/animated/slapping-cat-1348ecde-96.css',
+      customRule: null
+    },
+    nightlight_busy: {
+      name: 'Nightlight Busy',
+      icon: '⏳',
+      cssUrl: 'https://cdn.cursors-4u.net/cursors/animated/wait-d5563418-50.css',
+      customRule: null
+    },
+    pink_girl: {
+      name: 'Pink Girl Sleepy',
+      icon: '🎀',
+      cssUrl: 'https://cdn.cursors-4u.net/cursors/animated/pink-girl-normal-4987f599-96.css',
+      customRule: null
+    }
+  };
+
+  let dynamicLinkEl = document.getElementById('dynamicCursorLink');
+  if (!dynamicLinkEl) {
+    dynamicLinkEl = document.createElement('link');
+    dynamicLinkEl.id = 'dynamicCursorLink';
+    dynamicLinkEl.rel = 'stylesheet';
+    document.head.appendChild(dynamicLinkEl);
+  }
+
+  let dynamicStyleEl = document.getElementById('dynamicCursorStyle');
+  if (!dynamicStyleEl) {
+    dynamicStyleEl = document.createElement('style');
+    dynamicStyleEl.id = 'dynamicCursorStyle';
+    document.head.appendChild(dynamicStyleEl);
+  }
+
+  function applyCursor(cursorKey) {
+    const config = CURSOR_CONFIGS[cursorKey] || CURSOR_CONFIGS.sukuna;
+
+    if (cursorCurrentIcon) cursorCurrentIcon.textContent = config.icon;
+    if (cursorCurrentLabel) cursorCurrentLabel.textContent = config.name;
+
+    cursorOptions.forEach(opt => {
+      opt.classList.toggle('active', opt.dataset.cursor === cursorKey);
+    });
+
+    if (config.cssUrl) {
+      dynamicStyleEl.textContent = '';
+      dynamicLinkEl.href = config.cssUrl;
+    } else {
+      dynamicLinkEl.removeAttribute('href');
+      dynamicStyleEl.textContent = config.customRule || '';
+    }
+
+    try {
+      localStorage.setItem('portfolio_cursor_choice', cursorKey);
+    } catch(e) {}
+  }
+
+  if (cursorDropdownTrigger && cursorDropdown) {
+    cursorDropdownTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cursorDropdown.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!cursorDropdown.contains(e.target)) {
+        cursorDropdown.classList.remove('open');
+      }
+    });
+
+    cursorOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        const key = opt.dataset.cursor;
+        applyCursor(key);
+        cursorDropdown.classList.remove('open');
+      });
+    });
+
+    const savedCursor = localStorage.getItem('portfolio_cursor_choice') || 'sukuna';
+    applyCursor(savedCursor);
+  }
 
   /* =========================================
      6. STAT COUNTING

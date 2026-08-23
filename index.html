@@ -68,7 +68,51 @@
               </div>
             </div>
             <p class="intro-quote" data-motion>"I am a vibe coder who changes the vibe."</p>
-          </div>
+
+            <!-- Cursor Style Switcher Menu -->
+            <div class="cursor-selector-container" data-motion>
+              <div class="cursor-selector-label">
+                <span class="cursor-dot"></span>
+                <span>CUSTOMIZE CURSOR</span>
+              </div>
+              <div class="cursor-dropdown" id="cursorDropdown">
+                <button type="button" class="cursor-dropdown-trigger" id="cursorDropdownTrigger" aria-label="Select cursor style">
+                  <span class="cursor-current-icon" id="cursorCurrentIcon">👉</span>
+                  <span class="cursor-current-label" id="cursorCurrentLabel">Sukuna Finger (Default)</span>
+                  <svg class="cursor-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="cursor-dropdown-menu" id="cursorDropdownMenu">
+                  <button type="button" class="cursor-option active" data-cursor="sukuna">
+                    <span class="opt-icon">👉</span>
+                    <div class="opt-info">
+                      <span class="opt-title">Sukuna Finger</span>
+                      <span class="opt-badge">Default</span>
+                    </div>
+                  </button>
+                  <button type="button" class="cursor-option" data-cursor="bongo_cat">
+                    <span class="opt-icon">🐱</span>
+                    <div class="opt-info">
+                      <span class="opt-title">Bongo Cat</span>
+                      <span class="opt-badge">Slapping Cat</span>
+                    </div>
+                  </button>
+                  <button type="button" class="cursor-option" data-cursor="nightlight_busy">
+                    <span class="opt-icon">⏳</span>
+                    <div class="opt-info">
+                      <span class="opt-title">Nightlight Busy</span>
+                      <span class="opt-badge">Animated</span>
+                    </div>
+                  </button>
+                  <button type="button" class="cursor-option" data-cursor="pink_girl">
+                    <span class="opt-icon">🎀</span>
+                    <div class="opt-info">
+                      <span class="opt-title">Pink Girl Sleepy</span>
+                      <span class="opt-badge">Chibi</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
           <div class="intro-details">
             <div class="detail-card" data-motion data-cursor-press>
               <div class="detail-icon">📍</div>
