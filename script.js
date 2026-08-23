@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* =========================================
-     2. VIDEO SCROLL SYNC + FADE TO BLACK (SMOOTH LERP FOR LOW-END/LOW-NET PCS)
+     2. VIDEO SCROLL SYNC + FADE TO BLACK (ULTRA SMOOTH LERP)
      ========================================= */
   const heroVideo = document.getElementById('heroVideo');
   const videoLayer = document.getElementById('videoLayer');
@@ -49,33 +49,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const sectionHeight = heroSection.offsetHeight - window.innerHeight;
     const scrolled = Math.max(0, -rect.top);
     targetProgress = Math.min(1, Math.max(0, scrolled / Math.max(sectionHeight, 1)));
-    isHeroVisible = rect.bottom > 0;
-    if (videoLayer) videoLayer.classList.toggle('hidden', !isHeroVisible);
+    isHeroVisible = rect.bottom > -50;
+    if (videoLayer) videoLayer.classList.toggle('hidden', rect.bottom <= 0);
   }
 
   function renderSmoothHero() {
     if (isHeroVisible) {
       const diff = targetProgress - currentProgress;
-      if (Math.abs(diff) > 0.0004) {
-        currentProgress += diff * 0.18; // smooth spring lerp
+      if (Math.abs(diff) > 0.0002) {
+        currentProgress += diff * 0.25;
         
         if (heroVideo && videoDuration > 0 && !heroVideo.seeking) {
           const targetTime = currentProgress * videoDuration;
-          if (Math.abs(heroVideo.currentTime - targetTime) > 0.025) {
+          if (Math.abs(heroVideo.currentTime - targetTime) > 0.015) {
             heroVideo.currentTime = targetTime;
           }
         }
       }
 
-      // Hero text visibility
-      if (heroText) heroText.classList.toggle('visible', currentProgress > 0.1 && currentProgress < 0.7);
+      // Smooth continuous hero text fade
+      if (heroText) {
+        if (currentProgress >= 0.06 && currentProgress <= 0.72) {
+          let op = 1;
+          if (currentProgress < 0.2) op = (currentProgress - 0.06) / 0.14;
+          else if (currentProgress > 0.55) op = (0.72 - currentProgress) / 0.17;
+          const clamped = Math.max(0, Math.min(1, op));
+          heroText.style.opacity = clamped;
+          heroText.style.transform = `translateY(${(1 - clamped) * 12}px)`;
+        } else {
+          heroText.style.opacity = '0';
+        }
+      }
 
       // Scroll indicator
-      if (scrollIndicator) scrollIndicator.classList.toggle('hidden', currentProgress > 0.05);
+      if (scrollIndicator) {
+        scrollIndicator.style.opacity = currentProgress > 0.04 ? '0' : '1';
+        scrollIndicator.style.pointerEvents = currentProgress > 0.04 ? 'none' : 'auto';
+      }
 
       // Fade to black
       if (heroFade) {
-        const fadeStart = 0.75;
+        const fadeStart = 0.72;
         if (currentProgress > fadeStart) {
           heroFade.style.opacity = Math.min(1, (currentProgress - fadeStart) / (1 - fadeStart));
         } else {
@@ -392,104 +406,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.title-word').forEach(w => titleObs.observe(w));
-
-  /* =========================================
-     5B. CURSOR STYLE SWITCHER ENGINE
-     ========================================= */
-  const cursorDropdown = document.getElementById('cursorDropdown');
-  const cursorDropdownTrigger = document.getElementById('cursorDropdownTrigger');
-  const cursorCurrentIcon = document.getElementById('cursorCurrentIcon');
-  const cursorCurrentLabel = document.getElementById('cursorCurrentLabel');
-  const cursorOptions = document.querySelectorAll('.cursor-option');
-
-  const CURSOR_CONFIGS = {
-    sukuna: {
-      name: 'Sukuna Finger (Default)',
-      icon: '👉',
-      cssUrl: null,
-      customRule: "* { cursor: url('https://cdn.cursors-4u.net/previews/sukuna-finger-c7e60abd-72.webp') 12 14, auto !important; }"
-    },
-    bongo_cat: {
-      name: 'Bongo Cat (Slapping Cat)',
-      icon: '🐱',
-      cssUrl: 'https://cdn.cursors-4u.net/cursors/animated/slapping-cat-1348ecde-96.css',
-      customRule: null
-    },
-    nightlight_busy: {
-      name: 'Nightlight Busy',
-      icon: '⏳',
-      cssUrl: 'https://cdn.cursors-4u.net/cursors/animated/wait-d5563418-50.css',
-      customRule: null
-    },
-    pink_girl: {
-      name: 'Pink Girl Sleepy',
-      icon: '🎀',
-      cssUrl: 'https://cdn.cursors-4u.net/cursors/animated/pink-girl-normal-4987f599-96.css',
-      customRule: null
-    }
-  };
-
-  let dynamicLinkEl = document.getElementById('dynamicCursorLink');
-  if (!dynamicLinkEl) {
-    dynamicLinkEl = document.createElement('link');
-    dynamicLinkEl.id = 'dynamicCursorLink';
-    dynamicLinkEl.rel = 'stylesheet';
-    document.head.appendChild(dynamicLinkEl);
-  }
-
-  let dynamicStyleEl = document.getElementById('dynamicCursorStyle');
-  if (!dynamicStyleEl) {
-    dynamicStyleEl = document.createElement('style');
-    dynamicStyleEl.id = 'dynamicCursorStyle';
-    document.head.appendChild(dynamicStyleEl);
-  }
-
-  function applyCursor(cursorKey) {
-    const config = CURSOR_CONFIGS[cursorKey] || CURSOR_CONFIGS.sukuna;
-
-    if (cursorCurrentIcon) cursorCurrentIcon.textContent = config.icon;
-    if (cursorCurrentLabel) cursorCurrentLabel.textContent = config.name;
-
-    cursorOptions.forEach(opt => {
-      opt.classList.toggle('active', opt.dataset.cursor === cursorKey);
-    });
-
-    if (config.cssUrl) {
-      dynamicStyleEl.textContent = '';
-      dynamicLinkEl.href = config.cssUrl;
-    } else {
-      dynamicLinkEl.removeAttribute('href');
-      dynamicStyleEl.textContent = config.customRule || '';
-    }
-
-    try {
-      localStorage.setItem('portfolio_cursor_choice', cursorKey);
-    } catch(e) {}
-  }
-
-  if (cursorDropdownTrigger && cursorDropdown) {
-    cursorDropdownTrigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      cursorDropdown.classList.toggle('open');
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!cursorDropdown.contains(e.target)) {
-        cursorDropdown.classList.remove('open');
-      }
-    });
-
-    cursorOptions.forEach(opt => {
-      opt.addEventListener('click', () => {
-        const key = opt.dataset.cursor;
-        applyCursor(key);
-        cursorDropdown.classList.remove('open');
-      });
-    });
-
-    const savedCursor = localStorage.getItem('portfolio_cursor_choice') || 'sukuna';
-    applyCursor(savedCursor);
-  }
 
   /* =========================================
      6. STAT COUNTING
